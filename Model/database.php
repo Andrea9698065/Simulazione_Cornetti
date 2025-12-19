@@ -35,43 +35,26 @@ class CDatabase {
         }
         mysqli_set_charset($this->connection, "utf8mb4");
     }
-    public function QuerySearch($query, $params = [], $types = ""){
-        if (!$this->connection) {
-            die("Query di ricerca fallita ; Connessione  NON FUNZIONANTE");
-        }
+    public function Query(string $query, array $params = [], string $types = "")
+    {
         $stmt = mysqli_prepare($this->connection, $query);
-        if(!$stmt) {
-            die("Errore nella query : " . mysqli_error($this->connection));
+        if (!$stmt) {
+            die("Errore query: " . mysqli_error($this->connection));
         }
 
-
-        if(!empty($params)) {
+        if (!empty($params)) {
             mysqli_stmt_bind_param($stmt, $types, ...$params);
         }
 
         mysqli_stmt_execute($stmt);
-        return mysqli_stmt_get_result($stmt);
 
-    }
-    public function QueryInsert($query, $params = [], $types = ""){
-        if (!$this->connection) {
-            die("Errore: nessuna connessione attiva");
+        // 🔍 Se è una SELECT ritorno un result
+        if (stripos($query, 'SELECT') === 0) {
+            return mysqli_stmt_get_result($stmt);
         }
 
-        $stmt = mysqli_prepare($this->connection, $query);
-
-        if(!$stmt) {
-            die("Errore nella preparazione della query: " . mysqli_error($this->connection));
-        }
-
-        if(!empty($params)) {
-            mysqli_stmt_bind_param($stmt, $types, ...$params);
-        }
-
-        $success = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-
-        return $success;
+        // ✏️ INSERT / UPDATE / DELETE
+        return mysqli_stmt_affected_rows($stmt) > 0;
     }
     public function FetchAssoc($result) {
         if ($result) {

@@ -11,7 +11,7 @@ class CCrud {
     }
     public function GetAll($table){
         $query = "SELECT * FROM " . $table;
-        $result = $this->db->QuerySearch($query);
+        $result = $this->db->Query($query);
         return $this->db->FetchAll($result);
     }
     public function InsertCornetto($table, $sapore,$prezzo,$data_inserimento){
@@ -19,7 +19,7 @@ class CCrud {
                   VALUES (?, ?, ?)";
 
 
-        return $this->db->QueryInsert($query, [
+        return $this->db->Query($query, [
             $sapore,
             $prezzo,
             $data_inserimento
@@ -27,12 +27,12 @@ class CCrud {
     }
     public function GetById($id, $table) {
         $query = "SELECT * FROM " . $table . " WHERE id = ?";
-        $result = $this->db->QuerySearch($query, [$id], "i");
+        $result = $this->db->Query($query, [$id], "i");
         return $this->db->FetchAssoc($result);
     }
     public function Delete($id, $table) {
         $query = "DELETE FROM " . $table . " WHERE id = ?";
-        return $this->db->QueryInsert($query, [$id], "i");
+        return $this->db->Query($query, [$id], "i");
     }
 }
 

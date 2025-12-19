@@ -6,13 +6,13 @@ $messaggio = "";
 if (empty($id)) {
     $messaggio = "ID non valido";
 } else {
-    // Verifica se il cornetto esiste
+
     $cornetto = $Crud->GetById($id, Table_Name);
 
     if ($cornetto == null) {
         $messaggio = "Il cornetto non esiste";
     } else {
-        // Prova a eliminare
+
         if ($Crud->Delete($id, Table_Name)) {
             $messaggio = "Venduto con Successo";
         } else {

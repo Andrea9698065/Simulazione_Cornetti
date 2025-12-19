@@ -11,13 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prezzo = $_POST['prezzo'] ?? '';
     $data = $_POST['data'] ?? '';
 
-    if (empty($sapore)) {
-        $errori[] = "Seleziona un sapore";
-    }
-    if ($prezzo <= 1) {
-        $errori[] = "Il prezzo deve essere almeno 1 euro";
-    }
-
     $dataLimite = date("Y-m-d", strtotime("-2 days"));
     if ($data < $dataLimite) {
         $errori[] = "La data non può essere più vecchia di 2 giorni";
@@ -52,12 +45,10 @@ $Sapore = array(
 <body>
 
     <h1>INSERISCI NUOVO CORNETTO </h1>
-
     <form method="POST" action="">
 
         <label>Sapore:</label>
         <select name="sapore" required>
-            <option value="">Seleziona sapore </option>
            <?php  foreach ($Sapore as $value):   ?>
                <option value="<?= htmlspecialchars($value) ?>">
                    <?= htmlspecialchars($value) ?>

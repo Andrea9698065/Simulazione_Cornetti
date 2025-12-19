@@ -8,7 +8,6 @@ require_once "Model/database.php";
 $page = $_GET['page'] ?? 'negozio' ;
 
 $db = Cdatabase::getInstance();
-$db->connect();
 $route = [
   'negozio'  => 'View/negozio.php',
   'aggiungi' => 'View/aggiungi.php',

@@ -36,7 +36,7 @@ $IntestazioneColonne = array(
 </head>
 <body>
 
-<h2>NEGOZIO.PHP - Cornetti e Dolcetti</h2>
+<h2>NEGOZIO.PHP </h2>
 
 <?php if(empty($data)) : ?>
     <strong>NON CI SONO CORNETTI</strong>

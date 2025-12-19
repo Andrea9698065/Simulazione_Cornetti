@@ -48,12 +48,12 @@ class CDatabase {
 
         mysqli_stmt_execute($stmt);
 
-        // 🔍 Se è una SELECT ritorno un result
+
         if (stripos($query, 'SELECT') === 0) {
             return mysqli_stmt_get_result($stmt);
         }
 
-        // ✏️ INSERT / UPDATE / DELETE
+
         return mysqli_stmt_affected_rows($stmt) > 0;
     }
     public function FetchAssoc($result) {
